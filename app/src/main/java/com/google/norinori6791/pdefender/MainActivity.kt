@@ -1,6 +1,8 @@
 package com.google.norinori6791.pdefender
 
 import android.os.Bundle
+import android.os.CancellationSignal
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
@@ -13,6 +15,9 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.Toast
+import androidx.biometric.BiometricPrompt
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,12 +41,42 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_top, R.id.nav_slideshow,
+                R.id.nav_top, R.id.nav_slideshow,
                 R.id.nav_tools, R.id.nav_share
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // 生体認証
+        val executor = Executors.newSingleThreadExecutor()
+
+        val biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Log.d("Biometric", "Error")
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    Log.d("Biometric", "Succeeded")
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Log.d("Biometric", "Failed")
+                }
+            })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Title")
+            .setSubtitle("Sub title")
+            .setDescription("Description")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

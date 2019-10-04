@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentShowBindingImpl
 import com.google.norinori6791.pdefender.model.entity.AuthInfo
+import com.google.norinori6791.pdefender.ui.home.HomeFragment
 
 class ShowFragment : Fragment() {
 
@@ -38,6 +39,12 @@ class ShowFragment : Fragment() {
         viewModel.item.set(item)
         binding.viewModel = viewModel
 
+
+        // WebViewに遷移
+        viewModel.onMove.observe(this, Observer {
+            moveFragment(it, R.id.nav_host_fragment)
+        })
+
         // クリップボードコピー
         viewModel.onCopy.observe(this, Observer {
             var clipBordManager= this.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -48,6 +55,8 @@ class ShowFragment : Fragment() {
                 Toast.makeText(this.context, getString(R.string.copy_ok), Toast.LENGTH_SHORT).show()
             }
         })
+        var root = binding.getRoot()
+        return root
 
 //        val BORDER_WEIGHT = 2
 //        val borderDrawable = GradientDrawable()
@@ -59,7 +68,15 @@ class ShowFragment : Fragment() {
 //        binding.showTitleValueTv.setBackground(layerDrawable)
 
 
+    }
+    private fun moveFragment(url: String, viewid: Int){
+        val transaction = fragmentManager?.beginTransaction()
+        val homeFragment = HomeFragment()
 
-        return binding.getRoot()
+        val bundle = Bundle()
+        bundle.putString("url", url)
+        homeFragment.arguments = bundle
+        transaction?.replace(viewid, homeFragment)
+        transaction?.commit()
     }
 }

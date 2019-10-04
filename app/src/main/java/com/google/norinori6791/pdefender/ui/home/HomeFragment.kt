@@ -32,14 +32,17 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val binding: FragmentHomeBindingImpl = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        var root = binding.getRoot()
 
-        homeViewModel.text.observe(this, Observer {
+        val extras: Bundle? = arguments
+
+        val url = extras?.getString("url")
+
+//        homeViewModel.text.observe(this, Observer {
             binding.homeWebview.getSettings().setJavaScriptEnabled(true)
             binding.homeWebview.addJavascriptInterface(MyJavaScriptInterface(activity!!.applicationContext), "HtmlViewer")
 
             // URL変更イベントを取得できる
-            binding.homeWebview.setWebViewClient(object: WebViewClient(){
+            binding.homeWebview.setWebViewClient(object: WebViewClient() {
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
                     url: String?
@@ -50,12 +53,18 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    view?.evaluateJavascript("javascript:window.HtmlViewer.showHTML" +
-                            "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');", null)
+                    view?.evaluateJavascript(
+                        "javascript:window.HtmlViewer.showHTML" +
+                                "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');",
+                        null
+                    )
                 }
             })
-            binding.homeWebview.loadUrl(it)
-        })
+            binding.homeWebview.loadUrl(url)
+//        })
+
+
+        var root = binding.getRoot()
         return root
     }
 }

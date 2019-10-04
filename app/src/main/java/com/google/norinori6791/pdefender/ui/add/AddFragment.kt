@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentAddBindingImpl
 import com.google.norinori6791.pdefender.ui.home.HomeFragment
+import com.google.norinori6791.pdefender.ui.top.TopFragment
 
 class AddFragment : Fragment() {
     private lateinit var viewModel: AddViewModel
@@ -38,8 +39,8 @@ class AddFragment : Fragment() {
     private fun moveFragment(check: Boolean, viewid: Int){
         if(check){
             val transaction = fragmentManager?.beginTransaction()
-            val homeFragment = HomeFragment()
-            transaction?.add(viewid, homeFragment)
+            val topFragment = TopFragment()
+            transaction?.replace(viewid, topFragment)
             transaction?.commit()
         }
     }

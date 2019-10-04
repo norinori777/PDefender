@@ -10,5 +10,5 @@ class HomeViewModel : ViewModel() {
 //        value = "https://www.google.co.jp"
 //    }
 //    val text: LiveData<String> = _text
-    val text = MutableLiveData<String>("https://www.google.co.jp")
+    val text = MutableLiveData<String>()
 }

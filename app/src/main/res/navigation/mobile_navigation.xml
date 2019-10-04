@@ -3,25 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.google.norinori6791.pdefender.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_add"
-        android:name="com.google.norinori6791.pdefender.ui.add.AddFragment"
-        android:label="@string/menu_add"
-        tools:layout="@layout/fragment_add" />
+    app:startDestination="@+id/nav_top">
 
     <fragment
         android:id="@+id/nav_top"
         android:name="com.google.norinori6791.pdefender.ui.top.TopFragment"
         android:label="@string/menu_top"
         tools:layout="@layout/fragment_top" />
+
+    <fragment
+        android:id="@+id/nav_add"
+        android:name="com.google.norinori6791.pdefender.ui.add.AddFragment"
+        android:label="@string/menu_add"
+        tools:layout="@layout/fragment_add" />
 
     <fragment
         android:id="@+id/nav_show"
@@ -34,12 +28,6 @@
         android:name="com.google.norinori6791.pdefender.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.google.norinori6791.pdefender.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"

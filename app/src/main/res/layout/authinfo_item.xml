@@ -38,41 +38,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tool:text="amazon" />
 
-    <TextView
-        android:id="@+id/category_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{Integer.toString(item.category)}"
-        android:visibility="gone"/>
-
-
-    <TextView
-        android:id="@+id/url_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{item.url}"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/uid_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{item.uid}"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/password_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{item.password}"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/memo_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{item.memo}"
-        android:visibility="gone"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

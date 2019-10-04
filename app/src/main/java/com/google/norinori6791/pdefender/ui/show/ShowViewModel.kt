@@ -10,7 +10,7 @@ import java.io.Serializable
 class ShowViewModel : ViewModel() {
     var item = ObservableField<AuthInfo>()
     val onCopy = MutableLiveData<OnClickData>()
-    val onMove = MutableLiveData<String>("")
+    val onMove = MutableLiveData<String>()
 
     fun copyToClipBord(text: String, notify: Boolean){
         val data = OnClickData(text, notify)
