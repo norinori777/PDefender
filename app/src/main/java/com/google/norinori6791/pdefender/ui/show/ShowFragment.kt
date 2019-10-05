@@ -32,8 +32,8 @@ class ShowFragment : Fragment() {
 
         val binding: FragmentShowBindingImpl = DataBindingUtil.inflate(inflater,R.layout.fragment_show, container, false)
 
+        // 遷移時の受け渡し情報を取得
         val extras: Bundle? = arguments
-
         val item = extras?.getSerializable("item") as AuthInfo
 
         viewModel.item.set(item)
@@ -69,6 +69,15 @@ class ShowFragment : Fragment() {
 
 
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        setHasOptionsMenu(true)
+        activity?.setTitle(R.string.menu_show)
+
+    }
+
     private fun moveFragment(url: String, viewid: Int){
         val transaction = fragmentManager?.beginTransaction()
         val homeFragment = HomeFragment()

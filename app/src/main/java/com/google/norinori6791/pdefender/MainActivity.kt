@@ -1,7 +1,6 @@
 package com.google.norinori6791.pdefender
 
 import android.os.Bundle
-import android.os.CancellationSignal
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -56,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
                     Log.d("Biometric", "Error")
+                    finish()
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
             })
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Title")
-            .setSubtitle("Sub title")
-            .setDescription("Description")
+            .setTitle(getString(R.string.app_name))
+            .setSubtitle(getString(R.string.biometric_subtitle))
+            .setDescription(getString(R.string.biometric_description))
             .setNegativeButtonText("Cancel")
             .build()
 

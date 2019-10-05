@@ -23,4 +23,6 @@
     <string name="bt_add">登録</string>
     <string name="bt_cancel">キャンセル</string>
     <string name="copy_ok">クリップボードにコピーしました。</string>
+    <string name="biometric_subtitle">生体認証</string>
+    <string name="biometric_description">指紋認証をします。</string>
 </resources>
