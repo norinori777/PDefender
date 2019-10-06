@@ -11,13 +11,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.google.norinori6791.pdefender.MainActivity
 import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentShowBindingImpl
 import com.google.norinori6791.pdefender.model.entity.AuthInfo
 import com.google.norinori6791.pdefender.ui.home.HomeFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class ShowFragment : Fragment() {
 
@@ -38,7 +41,6 @@ class ShowFragment : Fragment() {
 
         viewModel.item.set(item)
         binding.viewModel = viewModel
-
 
         // WebViewに遷移
         viewModel.onMove.observe(this, Observer {
@@ -72,10 +74,7 @@ class ShowFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        setHasOptionsMenu(true)
-        activity?.setTitle(R.string.menu_show)
-
+        activity!!.toolbar.title = getString(R.string.menu_show)
     }
 
     private fun moveFragment(url: String, viewid: Int){

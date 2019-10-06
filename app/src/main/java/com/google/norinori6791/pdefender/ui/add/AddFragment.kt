@@ -11,6 +11,7 @@ import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentAddBindingImpl
 import com.google.norinori6791.pdefender.ui.home.HomeFragment
 import com.google.norinori6791.pdefender.ui.top.TopFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class AddFragment : Fragment() {
     private lateinit var viewModel: AddViewModel
@@ -34,6 +35,11 @@ class AddFragment : Fragment() {
         val binding: FragmentAddBindingImpl = DataBindingUtil.inflate(inflater,R.layout.fragment_add, container, false)
         binding.add = viewModel
         return binding.getRoot()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity!!.toolbar.title = getString(R.string.menu_add)
     }
 
     private fun moveFragment(check: Boolean, viewid: Int){

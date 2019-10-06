@@ -17,6 +17,7 @@ import com.google.norinori6791.pdefender.model.entity.AuthInfo
 import com.google.norinori6791.pdefender.model.repository.AuthInfoItems
 import com.google.norinori6791.pdefender.ui.show.ShowFragment
 import com.google.norinori6791.pdefender.ui.top.view.ListAuthInfoAdapter
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_top.view.*
 
 class TopFragment : Fragment() {
@@ -51,6 +52,11 @@ class TopFragment : Fragment() {
         binding.authInfoRecyclerview.addItemDecoration(decorator)
 
         return binding.getRoot()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity!!.toolbar.title = getString(R.string.menu_top)
     }
 
     private fun moveFragment(item: AuthInfo, viewid: Int){
