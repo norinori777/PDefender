@@ -1,10 +1,9 @@
-package com.google.norinori6791.pdefender.ui.home
+package com.google.norinori6791.pdefender.ui.webview
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class WebModel : ViewModel() {
 
 //    private val _text = MutableLiveData<String>().apply {
 //        value = "https://www.google.co.jp"

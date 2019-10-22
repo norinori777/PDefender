@@ -1,4 +1,4 @@
-package com.google.norinori6791.pdefender.util
+package com.google.norinori6791.pdefender
 
 import androidx.lifecycle.MutableLiveData
 

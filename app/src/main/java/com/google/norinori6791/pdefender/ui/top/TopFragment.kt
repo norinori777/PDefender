@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.norinori6791.pdefender.R
@@ -60,13 +61,8 @@ class TopFragment : Fragment() {
     }
 
     private fun moveFragment(item: AuthInfo, viewid: Int){
-        val transaction = fragmentManager?.beginTransaction()
-        val showFragment = ShowFragment()
-
         val bundle = Bundle()
         bundle.putSerializable("item", item)
-        showFragment.arguments = bundle
-        transaction?.replace(viewid, showFragment)
-        transaction?.commit()
+        findNavController().navigate(R.id.action_nav_top_to_nav_show2, bundle)
     }
 }

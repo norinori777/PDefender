@@ -3,25 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_top">
+    app:startDestination="@id/nav_top">
+    <!--    startDestinationで最初の表示画面を決めている-->
 
     <fragment
         android:id="@+id/nav_top"
         android:name="com.google.norinori6791.pdefender.ui.top.TopFragment"
         android:label="@string/menu_top"
-        tools:layout="@layout/fragment_top" />
+        tools:layout="@layout/fragment_top" >
+        <action
+            android:id="@+id/action_nav_top_to_nav_show2"
+            app:destination="@id/nav_show" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add"
         android:name="com.google.norinori6791.pdefender.ui.add.AddFragment"
-        android:label="@string/menu_add"
-        tools:layout="@layout/fragment_add" />
+        android:label="@string/menu_add">
+        <action
+            android:id="@+id/action_nav_add_to_nav_top"
+            app:destination="@id/nav_top" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_show"
         android:name="com.google.norinori6791.pdefender.ui.show.ShowFragment"
         android:label="@string/menu_show"
-        tools:layout="@layout/fragment_show" />
+        tools:layout="@layout/fragment_show" >
+        <action
+            android:id="@+id/action_nav_show_to_nav_web"
+            app:destination="@id/nav_web" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -34,5 +46,20 @@
         android:name="com.google.norinori6791.pdefender.ui.share.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_web"
+        android:name="com.google.norinori6791.pdefender.ui.web.WebFragment"
+        android:label="WebView"
+        tools:layout="@layout/fragment_web" >
+        <action
+            android:id="@+id/action_nav_web_to_nav_top2"
+            app:destination="@id/nav_top" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.google.norinori6791.pdefender.MainActivity"
+        android:label="MainActivity"
+        app:destination="@id/nav_top" />
 
 </navigation>

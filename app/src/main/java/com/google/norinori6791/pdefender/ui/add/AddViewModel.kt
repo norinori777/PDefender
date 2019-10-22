@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import com.google.norinori6791.pdefender.MainNavigator
 import com.google.norinori6791.pdefender.model.entity.AuthInfo
 import com.google.norinori6791.pdefender.model.repository.AuthInfoItem
 import io.reactivex.Observable

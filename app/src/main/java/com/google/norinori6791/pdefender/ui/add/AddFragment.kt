@@ -1,15 +1,14 @@
 package com.google.norinori6791.pdefender.ui.add
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentAddBindingImpl
-import com.google.norinori6791.pdefender.ui.home.HomeFragment
 import com.google.norinori6791.pdefender.ui.top.TopFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -47,6 +46,7 @@ class AddFragment : Fragment() {
             val transaction = fragmentManager?.beginTransaction()
             val topFragment = TopFragment()
             transaction?.replace(viewid, topFragment)
+            transaction?.addToBackStack(null)
             transaction?.commit()
         }
     }

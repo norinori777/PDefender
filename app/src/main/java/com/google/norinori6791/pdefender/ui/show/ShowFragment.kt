@@ -3,23 +3,19 @@ package com.google.norinori6791.pdefender.ui.show
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.google.norinori6791.pdefender.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.google.norinori6791.pdefender.R
 import com.google.norinori6791.pdefender.databinding.FragmentShowBindingImpl
 import com.google.norinori6791.pdefender.model.entity.AuthInfo
-import com.google.norinori6791.pdefender.ui.home.HomeFragment
+import com.google.norinori6791.pdefender.ui.web.WebFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class ShowFragment : Fragment() {
@@ -78,13 +74,8 @@ class ShowFragment : Fragment() {
     }
 
     private fun moveFragment(url: String, viewid: Int){
-        val transaction = fragmentManager?.beginTransaction()
-        val homeFragment = HomeFragment()
-
         val bundle = Bundle()
         bundle.putString("url", url)
-        homeFragment.arguments = bundle
-        transaction?.replace(viewid, homeFragment)
-        transaction?.commit()
+        findNavController().navigate(R.id.action_nav_show_to_nav_web, bundle)
     }
 }

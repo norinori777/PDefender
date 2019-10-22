@@ -2,8 +2,6 @@ package com.google.norinori6791.pdefender
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -12,20 +10,17 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.Toast
-import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.norinori6791.pdefender.databinding.ActivityMainBinding
 import com.google.norinori6791.pdefender.ui.add.AddFragment
-import com.google.norinori6791.pdefender.util.MainViewModel
 import kotlinx.android.synthetic.main.app_bar_main.view.*
-import java.util.concurrent.Executors
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainNavigator  {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -37,19 +32,6 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setSupportActionBar(binding.drawerLayout.toolbar)
-
-        viewModel.moveAdd.observe(this, Observer {
-            if(it){
-                Toast.makeText(applicationContext, "test", Toast.LENGTH_SHORT).show()
-            }
-        })
-//        val fab: FloatingActionButton = findViewById(R.id.fab)
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -65,7 +47,59 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        // 登録画面への遷移
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            viewModel.onFabClicked()
+        }
+        viewModel.moveAdd.observe(this, Observer<Boolean>{
+            this.addNewAuthInfo()
+        })
+
+        biometricAuthentication()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    // 登録画面
+    override fun addNewAuthInfo() {
+        Navigation.createNavigateOnClickListener(R.id.nav_add, null)
+//        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, AddFragment()).commit()
+//
+//        if(supportFragmentManager.findFragmentById(R.id.nav_host_fragment) != null){
+//            supportFragmentManager.beginTransaction()
+//                .remove(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!).commit()
+//        }
+////        val transaction = Fragment().fragmentManager?.beginTransaction()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        val addFragment = AddFragment()
+//
+//        transaction?.replace(R.id.nav_host_fragment, addFragment)
+//        transaction?.commit()
+    }
+
+    private fun biometricAuthentication(){
         // 生体認証
+        val biometricManager = BiometricManager.from(this)
+        when(biometricManager.canAuthenticate()){
+            BiometricManager.BIOMETRIC_SUCCESS->
+                Log.d("BIOMETRIC", "アプリは生体認証を使用して認証できます。")
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE->
+                Log.d( "BIOMETRIC","このデバイスで、利用可能な生体認証機能はありません")
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE->
+                Log.d("BIOMETRIC", "バイオメトリック機能は現在利用できません。")
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED->
+                Log.d("BIOMETTIC", "バイオメトリック認証情報を登録していません。")
+        }
 //        val executor = Executors.newSingleThreadExecutor()
 //
 //        val biometricPrompt = BiometricPrompt(this, executor,
@@ -95,23 +129,6 @@ class MainActivity : AppCompatActivity() {
 //            .build()
 //
 //        biometricPrompt.authenticate(promptInfo)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-//    private fun moveFragment(viewid: Int){
-//        val transaction = FragmentManager.fragmentManager?.beginTransaction()
-//        val addFragment = AddFragment()
-//
-//        transaction?.replace(viewid, addFragment)
-//        transaction?.commit()
-//    }
 }
